@@ -1,0 +1,1 @@
+package comparator;import model.Student;import java.util.Comparator;public class StudentIdComparator implements Comparator<Student> {    @Override    public int compare(Student a, Student b) {        return a.getId()-b.getId();    }}
