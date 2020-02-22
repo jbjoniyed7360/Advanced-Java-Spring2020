@@ -26,7 +26,6 @@ public class ProductDAOmySQLImplementation implements ProductDao {
     @Override
     public List<Product> readAll() {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = ConnectionSingleton.getConnection();
             System.out.println("");
             String q = "select * from product_details";
@@ -55,7 +54,7 @@ public class ProductDAOmySQLImplementation implements ProductDao {
             }
             return products;
 
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(ProductDAOmySQLImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
