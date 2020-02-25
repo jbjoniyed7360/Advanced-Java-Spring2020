@@ -22,6 +22,41 @@ import java.util.stream.Collectors;
  */
 public class ProductDAOmySQLImplementation implements ProductDao {
     private List<Product> products = new ArrayList<>();
+    
+    @Override
+    public Product getSingleProduct(int id){
+        Connection con = ConnectionSingleton.getConnection();
+        try {
+            Statement st = con.createStatement();
+            String query = "select * from product_details WHERE productID="+id;
+            
+            
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+               Product product = new Product(
+                       Integer.parseInt(rs.getString("productID")),
+                       rs.getString("productName"),
+                       rs.getString("quantityPerUnit"),
+                       Double.parseDouble(rs.getString("unitPrice")),
+                       Double.parseDouble(rs.getString("unitsInStock")),
+                       Double.parseDouble(rs.getString("unitsOnOrder")),
+                       Double.parseDouble(rs.getString("reorderLevel")),
+                       rs.getString("discontinued").contains("true")
+               );
+               return product; 
+            }
+            
+            
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAOmySQLImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+    
+    
 
     @Override
     public List<Product> readAll() {
@@ -41,10 +76,6 @@ public class ProductDAOmySQLImplementation implements ProductDao {
                 }
                 productList_temp.add(value);
             }
-            
-            rs.close();
-            st.close();
-            con.close();
 
             if (!productList_temp.isEmpty()) {
                 products = productList_temp.stream()
@@ -85,6 +116,76 @@ public class ProductDAOmySQLImplementation implements ProductDao {
                 reorderLevel,
                 discontinued);
         return product;
+    }
+
+    @Override
+    public void createProduct(Product product) {
+        Connection con = ConnectionSingleton.getConnection();
+        try {
+            Statement st = con.createStatement();
+            String query = "insert into product_details values("+
+                    product.getProductID()+",'"+
+                    product.getProductName()+"','"+"','"+"','"+
+                    product.getQuantityPerUnit()+"','"+
+                    product.getUnitPrice()+"','"+
+                    product.getUnitsInStock()+"','"+
+                    product.getUnitsOnOrder()+"','"+
+                    product.getReorderLevel()+"','"+
+                    product.isDiscontinued()  
+                    +"')";
+            
+            System.out.println(st.executeUpdate(query));  
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAOmySQLImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+
+    @Override
+    public void deleteProduct(int id) {
+        Connection con = ConnectionSingleton.getConnection();
+        try {
+            Statement st = con.createStatement();
+            String query = "delete from product_details where productID="+id;
+            
+            st.executeUpdate(query);
+            
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAOmySQLImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void updateProduct(Product product, int id) {
+        Connection con = ConnectionSingleton.getConnection();
+        try {
+            Statement st = con.createStatement();
+            
+            String query = "UPDATE product_details set "+
+                   "productName='"+product.getProductName()+
+                    "',quantityPerUnit='"+product.getQuantityPerUnit()+
+                    "',unitPrice='"+product.getUnitPrice()+
+                    "',unitsInStock='"+product.getUnitsInStock()+
+                    "',unitsOnOrder='"+product.getUnitsOnOrder()+
+                    "',reorderLevel='"+product.getReorderLevel()+
+                    "',discontinued='"+product.isDiscontinued()+
+                    "' where productID ='"+id+"'";
+            
+            st.executeUpdate(query);
+                      
+            
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAOmySQLImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
     }
 
 }

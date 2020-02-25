@@ -13,9 +13,24 @@ import java.util.List;
  * @author kmhasan
  */
 public interface ProductDao {
+
     public List<Product> readAll();
+
+    default Product getSingleProduct(int productId) {
+        for (Product product : readAll()) {
+            if (product.getProductID() == productId) {
+                return product;
+            }
+        }
+        return null;
+    }
+    
+    public void createProduct(Product product);
+    public void deleteProduct(int id);
+    public void updateProduct(Product product,int id);
 }
 
 // TODO advanced
 // 1. restore the .csv file in a mysql database
 // 2. write a ProductDaoMySQLImplementation that reads from the database instead of the csv file
+

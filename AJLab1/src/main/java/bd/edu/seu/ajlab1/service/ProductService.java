@@ -27,7 +27,26 @@ public class ProductService {
         // that's the beauty of using DAO pattern here
         //productDao = new ProductDaoCsvImplementation();
         productDao = new ProductDAOmySQLImplementation();
-        productListGlobal = productDao.readAll();
+       // productListGlobal = productDao.readAll();
+    }
+    
+    
+    
+    public void createPoduct(Product product){
+        productDao.createProduct(product);
+    }
+    
+    public void updateProduct(Product product,int id){
+        productDao.updateProduct(product, id);
+    }
+    
+    public void deleteProduct(int id){
+        productDao.deleteProduct(id);
+    }
+    
+    
+    public Product getSingleProduct(int id){
+        return productDao.getSingleProduct(id);
     }
 
     // a sample implementation
