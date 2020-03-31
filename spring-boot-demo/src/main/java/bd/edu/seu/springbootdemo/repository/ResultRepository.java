@@ -1,0 +1,1 @@
+package bd.edu.seu.springbootdemo.repository;import bd.edu.seu.springbootdemo.model.Result;import org.springframework.data.jpa.repository.JpaRepository;public interface ResultRepository extends JpaRepository<Result,Long> {}

@@ -24,6 +24,7 @@ class SpringBootDemoApplicationTests {
         studentRepository.deleteAll();
     }
 
+    /*
     @Test
     public void save(){
         Student student = new Student(201788,"Md Joniyed Bhuiyan",3.5, LocalDate.now());
@@ -196,6 +197,7 @@ class SpringBootDemoApplicationTests {
                 .stream()
                 .forEach(System.out::println);
     }
+     */
 
 
 }

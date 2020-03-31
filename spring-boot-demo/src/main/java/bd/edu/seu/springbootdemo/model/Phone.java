@@ -1,0 +1,1 @@
+package bd.edu.seu.springbootdemo.model;import lombok.AllArgsConstructor;import lombok.Data;import lombok.NoArgsConstructor;import javax.persistence.Access;import javax.persistence.Embeddable;@Embeddable@Data@AllArgsConstructor@NoArgsConstructorpublic class Phone {    private String countryCode;    private String number;}
