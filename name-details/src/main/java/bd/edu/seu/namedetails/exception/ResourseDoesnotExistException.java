@@ -1,0 +1,1 @@
+package bd.edu.seu.namedetails.exception;public class ResourseDoesnotExistException extends Exception {    public ResourseDoesnotExistException(String s) {        super(s+" does not exist...");    }}

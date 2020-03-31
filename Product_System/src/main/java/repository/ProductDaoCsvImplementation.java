@@ -5,6 +5,7 @@
  */
 package repository;
 
+import exceptions.ProductNotFoundException;
 import model.Product;
 
 import java.io.FileNotFoundException;
@@ -65,7 +66,7 @@ public class ProductDaoCsvImplementation implements ProductDao {
     }
 
     @Override
-    public void createProduct(Product product) {
+    public Product createProduct(Product product) {
         int discontinued = 0;
         if( product.getDiscontinued()) {
             discontinued = 1;
@@ -97,10 +98,12 @@ public class ProductDaoCsvImplementation implements ProductDao {
         }else {
             System.out.println("ProductId is duplicate...");
         }
+
+        return getSingleProduct(product.getProductId());
     }
 
     @Override
-    public void deleteProduct(int id) {
+    public Product deleteProduct(int id) {
         List<Product> products = readAll().stream().filter(p -> p.getProductId()!=id).collect(Collectors.toList());
         StringBuilder stringBuilder = new StringBuilder();
         for(int i=0;i<products.size();i++) {
@@ -133,11 +136,11 @@ public class ProductDaoCsvImplementation implements ProductDao {
         wr.close();
 
         System.out.println(id+" no product is deleted..");
-        
+        return  null;
     }
 
     @Override
-    public void updateProduct(Product product, int id) {
+    public Product updateProduct(Product product, int id) {
         int discontinued = 0;
         if( product.getDiscontinued()) {
             discontinued = 1;
@@ -181,5 +184,6 @@ public class ProductDaoCsvImplementation implements ProductDao {
 
 
         System.out.println(id+" no product is updated....");
+        return getSingleProduct(id);
     }
 }

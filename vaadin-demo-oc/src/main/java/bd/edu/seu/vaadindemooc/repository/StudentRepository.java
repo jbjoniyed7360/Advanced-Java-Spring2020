@@ -1,0 +1,1 @@
+package bd.edu.seu.vaadindemooc.repository;import bd.edu.seu.vaadindemooc.model.Student;import org.springframework.data.jpa.repository.JpaRepository;public interface StudentRepository extends JpaRepository<Student, Long> {}

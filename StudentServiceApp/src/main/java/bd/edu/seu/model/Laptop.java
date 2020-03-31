@@ -1,0 +1,1 @@
+package bd.edu.seu.model;public class Laptop {}

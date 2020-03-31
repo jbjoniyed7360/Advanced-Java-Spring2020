@@ -1,0 +1,1 @@
+package bd.edu.seu.model;import lombok.AllArgsConstructor;import lombok.Data;import javax.persistence.Embeddable;@Data@AllArgsConstructor@Embeddablepublic class StudentName {    public StudentName() {    }    private String firstName;    private String middleName;    private String lastName;}

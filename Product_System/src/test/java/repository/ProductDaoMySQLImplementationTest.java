@@ -5,16 +5,15 @@
  */
 package repository;
 
+import exceptions.ProductNotFoundException;
 import model.Product;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 
 
 /**
@@ -23,15 +22,14 @@ import java.util.Properties;
  */
 public class ProductDaoMySQLImplementationTest {
     ProductDao productDao;
-    
+
     public ProductDaoMySQLImplementationTest() {
         productDao = new ProductDaoMySQLImplementation();
     }
 
-    @BeforeAll
-    public static void deleteAll(){
+    @BeforeEach
+    public void deleteAll(){
         ProductDao productDao1 = new ProductDaoMySQLImplementation();
-        System.out.println("Delete all...");
         productDao1.deleteAll();
     }
 
@@ -49,7 +47,11 @@ public class ProductDaoMySQLImplementationTest {
                     19+i,
                     5+i,
                     false);
-            productDao.createProduct(product);
+            try {
+                productDao.createProduct(product);
+            } catch (ProductNotFoundException e) {
+                e.printStackTrace();
+            }
             productList.add(product);
 
 
@@ -67,13 +69,13 @@ public class ProductDaoMySQLImplementationTest {
             Assertions.assertEquals(productList.get(i).getReorderLevel(),productList1.get(i).getReorderLevel());
             Assertions.assertEquals(productList.get(i).getDiscontinued(),productList1.get(i).getDiscontinued());
         }
-
-        deleteAll();
+        System.out.println("ReadAll Work Perfectly....");
     }
 
     @Test
     public void testGetSingleProduct() {
         testCreateProduct();
+        System.out.println("getSingle product work fine....");
     }
 
     @Test
@@ -87,9 +89,14 @@ public class ProductDaoMySQLImplementationTest {
                 19,
                 5,
                 false);
-        productDao.createProduct(product);
-        Product productFromDatabase = productDao.getSingleProduct(200);
-        
+        try {
+            productDao.createProduct(product);
+        } catch (ProductNotFoundException e) {
+            e.printStackTrace();
+        }
+        Product productFromDatabase = null;
+        productFromDatabase = productDao.getSingleProduct(200);
+
         Assertions.assertEquals(product.getProductId(), productFromDatabase.getProductId());
         Assertions.assertEquals(product.getProductName(), productFromDatabase.getProductName());
         Assertions.assertEquals(product.getQuantityPerUnit(), productFromDatabase.getQuantityPerUnit());
@@ -98,7 +105,8 @@ public class ProductDaoMySQLImplementationTest {
         Assertions.assertEquals(product.getUnitsOnOrder(), productFromDatabase.getUnitsOnOrder());
         Assertions.assertEquals(product.getReorderLevel(), productFromDatabase.getReorderLevel());
         Assertions.assertEquals(product.getDiscontinued(), productFromDatabase.getDiscontinued());
-        deleteAll();
+
+        System.out.println("perfectly create a product.....");
     }
 
     @Test
@@ -112,7 +120,11 @@ public class ProductDaoMySQLImplementationTest {
                 19,
                 5,
                 false);
-        productDao.createProduct(product);
+        try {
+            productDao.createProduct(product);
+        } catch (ProductNotFoundException e) {
+            e.printStackTrace();
+        }
         Product product1 = new Product(
                 200,
                 "Rename",
@@ -125,12 +137,11 @@ public class ProductDaoMySQLImplementationTest {
         productDao.updateProduct(product1,200);
 
 
-        Product product2 = productDao.getSingleProduct(200);
+        Product product2 = null;
+        product2 = productDao.getSingleProduct(200);
         Assertions.assertEquals(product1.getProductId(),product2.getProductId());
         Assertions.assertEquals(product1.getProductName(),product2.getProductName());
-
-        deleteAll();
-
+        System.out.println("Update a product was successful");
     }
 
     @Test
@@ -144,9 +155,14 @@ public class ProductDaoMySQLImplementationTest {
                 19,
                 5,
                 false);
-        productDao.createProduct(product);
+        try {
+            productDao.createProduct(product);
+        } catch (ProductNotFoundException e) {
+            e.printStackTrace();
+        }
         productDao.deleteProduct(200);
         Assertions.assertEquals(0,productDao.readAll().size());
-        deleteAll();
+        System.out.println("Product is deleted so method was good.....");
     }
+
 }

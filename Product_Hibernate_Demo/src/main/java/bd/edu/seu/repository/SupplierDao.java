@@ -1,0 +1,1 @@
+package bd.edu.seu.repository;import bd.edu.seu.model.Supplier;public interface SupplierDao {    public Supplier save(Supplier supplier);}

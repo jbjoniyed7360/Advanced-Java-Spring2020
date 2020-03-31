@@ -1,0 +1,1 @@
+package exceptions;public class ProductNotFoundException extends Exception {    public ProductNotFoundException(String s) {        super(s);        System.out.println(s);    }}

@@ -1,0 +1,1 @@
+package bd.edu.seu.model;import lombok.AllArgsConstructor;import lombok.Data;import javax.persistence.Entity;import javax.persistence.Id;@Data@AllArgsConstructor@Entity(name = "student")public class Student {    public Student() {    }    @Id    private long s_id;    private StudentName s_name;    private double Cgpa;}

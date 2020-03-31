@@ -1,0 +1,1 @@
+package bd.edu.seu.namedetails.exception;public class ResourseAlreadyExistException extends Exception {    public ResourseAlreadyExistException(String s) {        super(s+" already exist..");    }}

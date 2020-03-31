@@ -1,0 +1,1 @@
+package bd.edu.seu.springbootdemo.exceptions;public class ResourceDoesNotExistException extends Exception {    public ResourceDoesNotExistException(String s) {        super(s+" Does Not Exist....");    }}

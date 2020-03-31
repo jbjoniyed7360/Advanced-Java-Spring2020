@@ -1,0 +1,1 @@
+package bd.edu.seu.namedetails.exception;public class ResourseNotFoundException extends Exception {    public ResourseNotFoundException(String s) {        super(s+" not found any...");    }}

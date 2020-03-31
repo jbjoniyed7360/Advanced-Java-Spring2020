@@ -1,0 +1,1 @@
+package bd.edu.seu.springbootdemo.exceptions;public class ResourceAlreadyExistException extends Exception {    public ResourceAlreadyExistException(String s) {        super(s+" already exist.....");    }}

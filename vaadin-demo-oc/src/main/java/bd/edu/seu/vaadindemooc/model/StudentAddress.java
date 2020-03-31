@@ -1,0 +1,1 @@
+package bd.edu.seu.vaadindemooc.model;import lombok.AllArgsConstructor;import lombok.Data;import lombok.NoArgsConstructor;import javax.persistence.Embeddable;@Embeddable@Data@AllArgsConstructor@NoArgsConstructorpublic class StudentAddress {    private String village;    private String thana;    private String Discrict;    private String country;}

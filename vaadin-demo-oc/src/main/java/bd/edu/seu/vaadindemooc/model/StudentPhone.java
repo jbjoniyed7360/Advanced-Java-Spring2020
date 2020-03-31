@@ -1,0 +1,1 @@
+package bd.edu.seu.vaadindemooc.model;import lombok.AllArgsConstructor;import lombok.Data;import lombok.NoArgsConstructor;import javax.persistence.Embeddable;@Embeddable@Data@AllArgsConstructor@NoArgsConstructorpublic class StudentPhone {    private String countrycode;    private String number;}
